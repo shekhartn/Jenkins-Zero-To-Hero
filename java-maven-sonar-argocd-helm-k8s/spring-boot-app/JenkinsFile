@@ -49,6 +49,12 @@ tools {
         }
       }
     }
+    stage('Check Docker') {
+            steps {
+                sh 'whoami'
+                sh 'docker --version'
+            }
+        }
 
     stage('Build and Push Docker Image') {
       environment {

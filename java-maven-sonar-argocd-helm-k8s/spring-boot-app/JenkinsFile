@@ -20,7 +20,6 @@ tools {
     stage('Checkout') {
       steps {
         echo 'Checking out the repository...'
-        checkout scm
         // Uncomment the line below if using real repository
         // git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
         sh 'echo passed'
@@ -84,17 +83,12 @@ tools {
         }
       }
     }
-
-stage('Git SCM Checkout') {
-      steps {
-        checkout scm
-      }
-    }
     stage('Update Deployment File') {
       steps {
         echo 'Updating Kubernetes deployment file...'
         withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
           sh '''
+            cd ${WORKSPACE}
             git config user.email "shekharthr@gmail.com"
             git config user.name "Shekhar T"
             sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml

@@ -1,4 +1,7 @@
 pipeline {
+tools {
+    dockerTool 'docker'
+}
   agent {
         docker {
             image 'maven:3.9.4-eclipse-temurin-17'
